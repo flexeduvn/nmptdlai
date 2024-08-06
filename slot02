@@ -1,0 +1,42 @@
+import pandas as pd 
+import seaborn as sns
+df = pd.read_csv('dulieuxettuyendaihoc.csv',
+                 header=0,delimiter=','
+                 ,encoding='utf-8')
+df = df[['GT','DT','KV','KT','M1',
+         'M2','M3',
+         'NGAYTHI','DINHHUONGNGHENGHIEP']]
+df.info()
+df.rename(columns={'NGAYTHI':'NT',
+                   'DINHHUONGNGHENGHIEP':'NGHE'}, 
+                   inplace=True)
+df.head(5)
+df.dropna(how='all', inplace=True)
+df.drop_duplicates(inplace=True)
+import matplotlib.pyplot as plt
+plt.figure(figsize=(10,6))
+sns.heatmap(df.isna().transpose(),cmap='YlGnBu',
+            cbar_kws={'label':'Dữ liệu thiếu'})
+plt.savefig('missingdata.png', dpi=100)
+plt.show()
+df['DT'].fillna('KINH', inplace=True)
+df['M1'].fillna(df['M1'].mean(), inplace=True)
+df['M2'].fillna(df['M2'].median(), inplace=True)
+df['M3'].fillna(0, inplace=True)
+df['TBM'] = (df['M1']+df['M2']+df['M3'])/3
+df
+df.loc[df['TBM'] < 5.0, 'XL'] = 'FAIL'
+
+df.loc[(df['TBM'] >= 5.0) & 
+       (df['TBM'] < 7.0), 'XL'] = 'FAIR'
+
+df.loc[(df['TBM'] >= 7.0) & 
+       (df['TBM'] < 9.0), 'XL'] = 'GOOD'
+
+df.loc[df['TBM'] >= 9.0, 'XL'] = 'EXCEL'
+df
+dict_map = {
+    'A1':'G1', 'C':'G3', 'D1': 'G3', 'A': 'G1', 'B': 'G2'
+}
+df['NHOM'] = df['KT'].map(dict_map)
+df
