@@ -6,6 +6,8 @@ df = pd.read_csv('dulieuxettuyendaihoc.csv',
 df = df[['GT','DT','KV','KT','M1',
          'M2','M3',
          'NGAYTHI','DINHHUONGNGHENGHIEP']]
+
+# Data Manipulation
 df.info()
 df.rename(columns={'NGAYTHI':'NT',
                    'DINHHUONGNGHENGHIEP':'NGHE'}, 
@@ -40,3 +42,68 @@ dict_map = {
 }
 df['NHOM'] = df['KT'].map(dict_map)
 df
+def fplus(x,y):
+    if (x == 'G1' or x == 'G2') and (y >= 4.0):
+        return 1.0
+    else:
+        return 0.0
+
+df['PLUS'] = list(map(fplus,df['NHOM'],df['TBM']))
+df
+
+# Data Visualization
+sns.countplot(x='GT', data=df)
+plt.show()
+sns.countplot(x='KT', hue='GT',data=df)
+plt.show()
+sns.barplot(x='GT', y='M1', data=df, errorbar=None)
+plt.show()
+sns.barplot(x='GT', y='M1', hue='KT', data=df, errorbar=None)
+plt.show()
+sns.barplot(x='GT', y='M1', hue='KT', data=df)
+plt.show()
+sns.barplot(x='GT', y='M1', hue='KT', data=df, 
+            errorbar=None, estimator=max)
+plt.show()
+import numpy as np
+sns.barplot(x='KV', y='M1', hue='KT', 
+            data=df, errorbar=None, estimator=np.max)
+plt.show()
+
+gb = df.groupby(['KT'])['KT'].agg(['count'])
+
+labels = gb.index # labels = ['A','A1','B','C','D1']
+data = list(gb['count']) # data= [49,6,9,14,22]
+
+colors = sns.color_palette('pastel') # Tạo bảng màu
+
+plt.pie(data, labels=labels, colors=colors, 
+        autopct='%1.1f%%', shadow=True)
+
+plt.show()
+
+gb = df.groupby(['KV'])['PLUS'].agg(['sum'])
+
+labels = gb.index
+data = list(gb['sum'])
+
+colors = sns.color_palette('pastel') # Tạo bảng màu
+
+plt.pie(data, labels=labels, colors=colors, 
+        autopct='%1.1f%%', shadow=True)
+
+plt.show()
+
+sns.lineplot(x='NT', y='M1', data=df)
+plt.show()
+
+sns.lineplot(x='NT', y='M1', data=df, estimator=np.max)
+plt.show()
+
+sns.lineplot(x='NT', y='M1', hue='GT', 
+             data=df, estimator=np.max)
+plt.show()
+
+# THỐNG KÊ MÔ TẢ
+
+
