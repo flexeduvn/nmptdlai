@@ -5,3 +5,7 @@ url: https://www.python.org/downloads/
 2. Cài đặt Visual Studio Code
 url: https://code.visualstudio.com/ 
 
+3. Tạo file ipynb để code
+
+4. Cài đặt thư viện cần thiết pandas bằng pip: pip install pandas
+
