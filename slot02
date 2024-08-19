@@ -104,6 +104,4 @@ sns.lineplot(x='NT', y='M1', hue='GT',
              data=df, estimator=np.max)
 plt.show()
 
-# THỐNG KÊ MÔ TẢ
-
 
