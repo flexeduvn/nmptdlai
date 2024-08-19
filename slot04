@@ -1,0 +1,34 @@
+# Thống kể dữ liệu (Mô tả dữ liệu)
+
+print(f'{df["M1"].min()}\n{df["M1"].max()}\n')
+print(f'{df["M1"].mean()}\n{df["M1"].median()}\n')
+print(f'{df["KT"].mode()}\n')
+print(f'{df["M1"].quantile(0.25)}\n')
+
+df['M1'].max() - df['M1'].min()
+
+df['M1'].quantile(0.75) - df['M1'].quantile(0.25)
+
+np.mean(np.abs(df['M1'] - np.mean(df['M1'])))
+
+df[['M1','M2']].max() - df[['M1','M2']].min()
+
+df['M1'].var()
+
+df['M1'].std()
+
+print(df[['M1','M2']].mean())
+print(df[['M1','M2']].std())
+
+df[['M1','M2']].std()/df[['M1','M2']].mean()
+
+df['M1'].describe()
+
+df[['M1','M2','M3']].describe()
+
+cv = df[['M1','M2','M3']].std() / df[['M1','M2','M3']].mean()
+list(cv)
+
+df.groupby('GT')['M1'].describe()
+
+
