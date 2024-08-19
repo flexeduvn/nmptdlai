@@ -31,4 +31,69 @@ list(cv)
 
 df.groupby('GT')['M1'].describe()
 
+df.groupby('GT')['M2'].std()/df.groupby('GT')['M2'].mean()
+
+df['M1'].hist()
+plt.show()
+
+df['M1'].hist(bins=14)
+plt.show()
+
+sns.displot(df, x='M1', kind='kde')
+plt.show()
+
+sns.displot(data = df[['M1','M2','M3']], kind='kde')
+plt.show()
+
+sns.displot(df, x='M1', hue='GT', kind='kde')
+plt.show()
+
+df['M1'].skew()
+
+df[['M1','M2','M3']].skew()
+
+df[['M1']].kurtosis()
+
+df[['M1','M2','M3']].kurtosis()
+
+sns.displot(data = df[['M1','M2']], kind='kde')
+plt.show()
+
+sns.boxplot(data=df['M1'], orient="h")
+plt.show()
+
+sns.boxplot(data=df[['M1','M2','M3']], orient='h')
+plt.show()
+
+sns.boxplot(x='M1', y='KT',data=df, orient='h')
+plt.show()
+
+sns.boxplot(x='M1', y='GT',data=df, orient='h')
+plt.show()
+
+sns.boxplot(x='KT', y='M1',hue='GT',data=df)
+plt.show()
+
+from scipy import stats
+stats.probplot(df['M1'],plot=sns.mpl.pyplot)
+plt.show()
+
+df[['M1','M2']].cov()
+
+df[['M1','M2']].corr()
+
+sns.lmplot(data=df, x='M1', y='M2', fit_reg=True)
+plt.show()
+
+df[['M1','M2','M3']].corr()
+
+sns.heatmap(df[['M1','M2','M3']].corr(), vmax=1.0, square=False).xaxis.tick_top()
+
+sns.lmplot(data=df, x='M1', y='M2',hue='GT', fit_reg=True)
+plt.show()
+
+sns.pairplot(df[['M1','M2','M3']],diag_kind='kde', kind='reg')
+plt.show()
+
+
 
