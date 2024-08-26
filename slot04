@@ -50,7 +50,6 @@ plt.show()
 
 stat, p, dof, expected = chi2_contingency(crosdata)
  
-# interpret p-value
 alpha = 0.05
 print("p value is " + str(p))
 if p <= alpha:
@@ -67,8 +66,6 @@ aov_table
 
 model = ols('M1 ~ GT + KV + GT:KV',data=df).fit()
 result = sm.stats.anova_lm(model, type=2)
-  
-# Print the result
 print(result)
 
 import statsmodels.api as sm
