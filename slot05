@@ -115,3 +115,11 @@ scaled = scaler.fit_transform(df[['HCM','LA']])
 scaled_df = pd.DataFrame(scaled, columns=df[['HCM','LA']].columns)
 
 print(scaled_df)
+
+-------------------------------
+def funcX(x):
+    return x*x + 1
+
+df['TransformX'] = funcX(df[["LA"]])
+
+df
