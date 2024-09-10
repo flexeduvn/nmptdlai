@@ -53,3 +53,65 @@ y
 from sklearn.preprocessing import OneHotEncoder
 y = OneHotEncoder().fit_transform(df[['Countries']]).toarray()
 print(y)
+
+---------------------------------------
+import pandas as pd
+
+year = [2010,2011,2012,2013,2014,2015]
+
+salaryHCM = [8.5,9.0,10.5,12.0,11.0,10.0]
+
+salaryLA = [5.5,6.0,6.0,5.5,6.0,5.0]
+
+df = pd.DataFrame(list(zip(year, salaryHCM,salaryLA)),
+                  columns=['Year', 'HCM','LA'])
+df
+
+max_la = df['LA'].abs().max()
+df['macLA'] = df['LA'] / max_la
+
+df
+
+from sklearn.preprocessing import MaxAbsScaler
+scaler = MaxAbsScaler()
+scaled = scaler.fit_transform(df[['HCM','LA']])
+scaled_df = pd.DataFrame(scaled, columns=df[['HCM','LA']].columns)
+
+print(scaled_df)
+
+vSc = scaler.transform([[4.5,5.75]])
+vSc
+
+vR = scaler.inverse_transform([[0.5,0.8]])
+vR
+
+min_la = df['LA'].min()
+max_la = df['LA'].max()
+df['mmcLA'] = (df['LA'] - min_la) / (max_la - min_la)
+
+df
+
+from sklearn.preprocessing import MinMaxScaler
+
+scaler = MinMaxScaler()
+scaled = scaler.fit_transform(df[['HCM','LA']])
+scaled_df = pd.DataFrame(scaled, columns=df[['HCM','LA']].columns)
+
+print(scaled_df)
+
+-----------------------------
+
+mean_la = df['LA'].mean()
+std_la = df['LA'].std()
+df['zLA'] = (df['LA'] - mean_la) / std_la
+
+df
+
+from sklearn.preprocessing import StandardScaler
+
+scaler = StandardScaler()
+scaled = scaler.fit_transform(df[['HCM','LA']])
+
+scaled_df = pd.DataFrame(scaled, columns=df[['HCM','LA']].columns)
+
+print(scaled_df)
