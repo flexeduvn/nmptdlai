@@ -43,4 +43,4 @@ df.groupby(['KV','KT'])[['M1','M2']].agg(['min','max'])
 df_gr = df.groupby(['KV'],as_index=False).count()
 df_gr
 pd.pivot_table(df,values=['M1','M2'], columns='KV', aggfunc=['min','mean','max'])
-pd.pivot_table(newdf, values=['M1','M2'], columns=['KV','KT'], aggfunc=['min','mean','max'])
+pd.pivot_table(df, values=['M1','M2'], columns=['KV','KT'], aggfunc=['min','mean','max'])
