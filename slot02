@@ -197,10 +197,17 @@ list(cv)
 # Phân tích đơn biến định lượng (univariate analysis)
 
 df['M1'].describe()
+df[['M1','M2','M3']].describe()
 
 df.groupby('GT')['M1'].describe()
+# Câu hỏi: Đánh giá xem nhóm giới tính nào thi M1 tốt hơn
 
 df.groupby('GT')['M2'].std()/df.groupby('GT')['M2'].mean()
+# Câu hỏi đặt ra: 
+# Sinh viên có giới tính nam thì thi môn nào tốt hơn so với nữ
+# Lưu ý: Chỉ dùng 2 dòng code để thể hiện kết quả
+
+# Trực quan dữ liệu phân tích univariate analysis
 
 df['M1'].hist()
 plt.show()
@@ -213,53 +220,82 @@ plt.show()
 
 sns.displot(data = df[['M1','M2','M3']], kind='kde')
 plt.show()
+# Hãy cho biết phân phối của biến số nào gần với phân phối chuẩn hơn
 
 sns.displot(df, x='M1', hue='GT', kind='kde')
 plt.show()
+# Câu hỏi: Nhóm giới tính nào có phân phối điểm gần phân phối chuẩn
 
 df['M1'].skew()
 
 df[['M1','M2','M3']].skew()
 
 df[['M1']].kurtosis()
+# Câu hỏi: biến M1 có độ nhọn như thế nào
 
 df[['M1','M2','M3']].kurtosis()
+# Hãy cho biết dạng phân phối nào là thin, fat và fit
 
 sns.displot(data = df[['M1','M2']], kind='kde')
 plt.show()
-
-sns.boxplot(data=df['M1'], orient="h")
-plt.show()
-
-sns.boxplot(data=df[['M1','M2','M3']], orient='h')
-plt.show()
-
-sns.boxplot(x='M1', y='KT',data=df, orient='h')
-plt.show()
-
-sns.boxplot(x='M1', y='GT',data=df, orient='h')
-plt.show()
-
-sns.boxplot(x='KT', y='M1',hue='GT',data=df)
-plt.show()
+'''
+Câu hỏi: Nhìn biểu đồ hãy cho biết ý nghĩa của kutorsis 
+của 'M1','M2'
+'''
 
 from scipy import stats
 stats.probplot(df['M1'],plot=sns.mpl.pyplot)
 plt.show()
+# Hãy cho biết phân phối M1 có gần như phân phối chuẩn hay không
 
+sns.boxplot(data=df['M2'], orient="h")
+plt.show()
+# Với điểm M2
+# Hãy tính khoảng giá trị nghi ngờ bất thường
+# Hãy tính khoảng giá trị được cho là bất thường
+# Hãy tính xem có bao nhiêu sinh viên có điểm thi là bất thường
+
+sns.boxplot(data=df[['M1','M2','M3']], orient='h')
+plt.show()
+# Câu hỏi: Hãy cho biết điểm số môn nào không xảy ra bất thường
+
+sns.boxplot(x='M2', y='KT',data=df, orient='h')
+plt.show()
+# Câu hỏi: Khối thi nào có lower bound trùng với tứ phân vị thứ 1 (tức là Q1)
+
+sns.boxplot(x='GT',y='M2',data=df)
+plt.show()
+# 1. M2 trên giới tính nào có bất thường
+# 2. Có dễ dàng dự báo M2 theo yếu tố giới tính (GT) hay không?
+
+sns.boxplot(x='KT', y='M2',hue='GT',data=df)
+plt.show()
+# Câu hỏi: Xác định các biểu đồ có dữ liệu bất thường 
+
+# Phân tích đa biến định lượng (multivariate analysis)
 df[['M1','M2']].cov()
+
+# Bài tập: Xây dựng ma trận phương sai M1, M2, M3.
+# So sánh sự tương quan (ảnh hưởng, tác động, liên hệ) giữa 
+# M1 so với M3 
+# M2 so với M3
 
 df[['M1','M2']].corr()
 
 sns.lmplot(data=df, x='M1', y='M2', fit_reg=True)
 plt.show()
 
+# Câu hỏi: Vẽ biểu đồ khám phá tương quan tuyến tính giữa M2 và M3
+
 df[['M1','M2','M3']].corr()
+# Câu hỏi: Hãy viết code sắp xếp tăng dần mức độ tác động (tương quan tuyến tính) của M2, M3 đến M1
+# Câu hỏi: Hãy viết code tìm cặp tương quan tuyến tính cao nhất
 
 sns.heatmap(df[['M1','M2','M3']].corr(), vmax=1.0, square=False).xaxis.tick_top()
 
 sns.lmplot(data=df, x='M1', y='M2',hue='GT', fit_reg=True)
 plt.show()
+# Câu hỏi: Tương quan tuyến tính (M1, M2) của nhóm giới tính nào cao hơn
 
 sns.pairplot(df[['M1','M2','M3']],diag_kind='kde', kind='reg')
 plt.show()
