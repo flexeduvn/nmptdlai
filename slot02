@@ -152,13 +152,28 @@ print(f'{df["M1"].mean()}\n{df["M1"].median()}\n')
 print(f'{df["KT"].mode()}\n')
 print(f'{df["M1"].quantile(0.25)}\n')
 
+# Hãy tính phân vị thứ 9 trong thập phân vị (gọi là p9) cho M1 và M2. Gợi ý: phân vị thứ 9 có tỉ lệ là 0.9
+
 df['M1'].max() - df['M1'].min()
+
+df[['M1','M2']].max() - df[['M1','M2']].min()
+
+# Bài tập
+# Hãy tính khoảng range cho M1 và M2
+df[['M1','M2']].max() - df[['M1','M2']].min()
 
 df['M1'].quantile(0.75) - df['M1'].quantile(0.25)
 
+# Hãy tính độ lớn khoảng IQR cho M1 và M2
+
+# Bài tập
+# Hãy tính độ lớn khoảng dao động của M2 (gợi ý: |range|)
+# Hãy tính độ lớn của IQR của M2 là bao nhiêu (gợi ý: |IQR|)
+# Hãy tính khoảng giá trị IQR của M2 (gợi ý: [Q1;Q3])
+
 np.mean(np.abs(df['M1'] - np.mean(df['M1'])))
 
-df[['M1','M2']].max() - df[['M1','M2']].min()
+# Hãy tính độ lệch trung bình cho M1 và M2
 
 df['M1'].var()
 
@@ -175,6 +190,13 @@ df[['M1','M2','M3']].describe()
 
 cv = df[['M1','M2','M3']].std() / df[['M1','M2','M3']].mean()
 list(cv)
+
+# Bài tập: Sinh viên viết code để tìm ra giá trị cv lớn nhất và nhỏ nhất của M1, M2, M3
+# Hãy sắp xếp tăng dần danh sách các giá trị cv
+
+# Phân tích đơn biến định lượng (univariate analysis)
+
+df['M1'].describe()
 
 df.groupby('GT')['M1'].describe()
 
