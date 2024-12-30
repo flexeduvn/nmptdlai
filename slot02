@@ -7,7 +7,8 @@ df = df[['GT','DT','KV','KT','M1',
          'M2','M3',
          'NGAYTHI','DINHHUONGNGHENGHIEP']]
 
-#Phần 1: Thao tác cơ bản
+#Phần 1: Xử lý dữ liệu cơ bản
+
 df.info()
 df.rename(columns={'NGAYTHI':'NT',
                    'DINHHUONGNGHENGHIEP':'NGHE'}, 
@@ -15,18 +16,21 @@ df.rename(columns={'NGAYTHI':'NT',
 df.head(5)
 df.dropna(how='all', inplace=True)
 df.drop_duplicates(inplace=True)
+
 import matplotlib.pyplot as plt
 plt.figure(figsize=(10,6))
 sns.heatmap(df.isna().transpose(),cmap='YlGnBu',
             cbar_kws={'label':'Dữ liệu thiếu'})
 plt.savefig('missingdata.png', dpi=100)
 plt.show()
+
 df['DT'].fillna('KINH', inplace=True)
 df['M1'].fillna(df['M1'].mean(), inplace=True)
 df['M2'].fillna(df['M2'].median(), inplace=True)
 df['M3'].fillna(0, inplace=True)
 
 # Phần 2: Kỹ thuật Feature Engineering
+
 df['TBM'] = (df['M1']+df['M2']+df['M3'])/3
 df
 df.loc[df['TBM'] < 5.0, 'XL'] = 'FAIL'
@@ -56,6 +60,7 @@ df
 # Sinh viên tự làm tạo cột MaxM = giá trị lớn nhất của (M1,M2,M3)
 
 # Phần 3: Trực quan hóa dữ liệu
+
 sns.countplot(x='GT', data=df)
 plt.show()
 
@@ -141,6 +146,7 @@ sns.lineplot(x='NT', y='M1', hue='GT',
 plt.show()
 
 # Phần 4: Phân tích mô tả định lượng - THỐNG KÊ MÔ TẢ
+
 print(f'{df["M1"].min()}\n{df["M1"].max()}\n')
 print(f'{df["M1"].mean()}\n{df["M1"].median()}\n')
 print(f'{df["KT"].mode()}\n')
